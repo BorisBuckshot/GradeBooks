@@ -35,6 +35,27 @@ namespace Grades
             }
         }
 
+        public GradeSatistics ComputeStatistics()
+        {
+            GradeSatistics stats = new GradeSatistics();
+
+
+            float sum = 0;
+            foreach (float grade in grades)
+            {
+                //if (grade > stats.HighestGrade) stats.HighestGrade = grade;
+                //if (grade < stats.LowestGrade) stats.LowestGrade = grade;
+
+                stats.HighestGrade = Math.Max(grade, stats.HighestGrade);
+                stats.LowestGrade = Math.Min(grade, stats.LowestGrade);
+
+                sum += grade;
+            }
+            stats.AverageGrade = sum / grades.Count;
+
+            return stats;
+        }
+
         public void ShowHighestGrade()
         {
             float max = grades[0];
