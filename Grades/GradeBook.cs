@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Grades
 {
-    class GradeBook
+    public class GradeBook
     {
         public static float MaximumGrade = 100;
         public static float MinimumGrade = 0;
