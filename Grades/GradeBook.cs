@@ -8,23 +8,62 @@ namespace Grades
 {
     public class GradeBook
     {
-        public static float MaximumGrade = 100;
-        public static float MinimumGrade = 0;
-
-
         public GradeBook()
         {
-
+            _name = "Empty";
+            grades = new List<float>();
         }
 
-        public GradeBook(float grade)
+        public static float MaximumGrade = 100;
+        public static float MinimumGrade = 0;
+        private List<float> grades;
+
+        public event NameChangedDelegate NameChanged;
+
+        public string Name
         {
-            grades.Add(grade);
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    if(_name != value)
+                    {
+                        NameChangedEventArgs args = new NameChangedEventArgs();
+                        args.ExistingName = _name;
+                        args.NewName = value;
+
+                        NameChanged(this, args);
+                    }
+
+                    _name = value;
+                }
+            }
+
         }
+
+        private string _name;
+
+        public enum Type
+        {
+            Action,
+            Crime,
+            Horror,
+            Technical
+        }
+
+        //public GradeBook(float grade)
+        //{
+        //    grades.Add(grade);
+        //}
 
         public void AddGrade(float grade)
-        {
-            grades.Add(grade);
+        {   
+            grades.Add(grade);          
         }
 
         public void ShowGrade()
@@ -101,7 +140,5 @@ namespace Grades
             Console.WriteLine("The average grade is: " + average);
         }
 
-
-        List<float> grades = new List<float>();
     }
 }
